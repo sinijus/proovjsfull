@@ -1,0 +1,4 @@
+DROP SCHEMA IF EXISTS smitproovjs CASCADE;
+CREATE SCHEMA IF NOT EXISTS smitproovjs ;
+GRANT ALL ON SCHEMA smitproovjs TO postgres;
+GRANT ALL ON SCHEMA smitproovjs TO PUBLIC;
