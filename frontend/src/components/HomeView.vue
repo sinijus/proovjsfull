@@ -14,18 +14,18 @@
         <tr>
           <th>
             Eesnimi
-            <button class="right" @click="getContactsAscByFirstName" v-if="viewContacts">▼</button>
-            <button class="right" @click="getContactsDescByFirstName" v-if="viewContacts">▲</button>
+            <button class="right" @click="setRequestAndGetContacts(sort.parameter.firstName,sort.order.asc)" v-if="viewContacts">▼</button>
+            <button class="right" @click="setRequestAndGetContacts(sort.parameter.firstName,sort.order.desc)" v-if="viewContacts">▲</button>
           </th>
           <th>
             Perekonnanimi
-            <button class="right" @click="getContactsAscByLastName" v-if="viewContacts">▼</button>
-            <button class="right" @click="getContactsDescByLastName" v-if="viewContacts">▲</button>
+            <button class="right" @click="setRequestAndGetContacts(sort.parameter.lastName,sort.order.asc)" v-if="viewContacts">▼</button>
+            <button class="right" @click="setRequestAndGetContacts(sort.parameter.lastName,sort.order.desc)" v-if="viewContacts">▲</button>
           </th>
           <th>
             Koodnimi
-            <button class="right" @click="getContactsAscByCodename" v-if="viewContacts">▼</button>
-            <button class="right" @click="getContactsDescByCodename" v-if="viewContacts">▲</button>
+            <button class="right" @click="setRequestAndGetContacts(sort.parameter.codename,sort.order.asc)" v-if="viewContacts">▼</button>
+            <button class="right" @click="setRequestAndGetContacts(sort.parameter.codename,sort.order.desc)" v-if="viewContacts">▲</button>
           </th>
           <th>
             Telefoni number
@@ -39,9 +39,6 @@
           <td>{{ contact.codename }}</td>
           <td>{{ contact.phone }}</td>
         </tr>
-      <tr v-show="onContactsError">
-        {{ showErrorMessage }}
-      </tr>
       </tbody>
       <tbody v-if="!viewContacts">
         <tr>
@@ -72,6 +69,7 @@ export default {
   name: 'ContactsTable',
   data() {
     return {
+      sort: sort,
       viewContacts: true,
       keyword: '',
       sortParameter: '',
@@ -84,10 +82,6 @@ export default {
           phone: ''
         }
       ],
-      contactsError: {
-        message: '',
-        errorCode: 0
-      },
       contact: {
         firstName: '',
         lastName: '',
@@ -97,22 +91,13 @@ export default {
       contactError: {
         message: '',
         errorCode: 0
-      },
-      showErrorMessage: ''
+      }
     }
   }, methods: {
-    getContacts() {
-      this.$http.get("api/contacts")
-          .then(response => {
-            this.contacts = response.data
-          })
-          .catch(error => {
-            this.contactsError = error.response.data
-          })
-    },
-    getContactsOrdered() {
-      this.$http.get("api/ordered-contacts", {
+    getContacts: function () {
+      this.$http.get("/api/contacts", {
             params: {
+              filterName: this.keyword,
               sortParameter: this.sortParameter,
               sortOrder: this.sortOrder
             }
@@ -120,34 +105,6 @@ export default {
       ).then(response => {
         this.contacts = response.data
       }).catch(error => {
-        this.contactsError = error.response.data
-      })
-    },
-
-    getContactsByKeyword() {
-      this.$http.get("/api/filtered-contacts", {
-            params: {
-              name: this.keyword
-            }
-          }
-      ).then(response => {
-        this.contacts = response.data
-      }).catch(error => {
-        this.contactsError = error.response.data
-      })
-    },
-    getContactsByKeywordOrdered() {
-      this.$http.get("/api/filtered-ordered-contacts", {
-            params: {
-              name: this.keyword,
-              sortParameter: this.sortParameter,
-              sortOrder: this.sortOrder
-            }
-          }
-      ).then(response => {
-        this.contacts = response.data
-      }).catch(error => {
-        this.contactsError = error.response.data
       })
     },
     postContact() {
@@ -167,12 +124,15 @@ export default {
     },
     validateAndGetContactsByKeyword() {
       this.keyword = this.enableSingleWordInput(this.keyword)
-      this.resetContactsError()
-      if (this.keyword === '') {
-        this.getContacts()
-      } else {
-        this.getContactsByKeyword();
-      }
+      this.getContacts()
+    },
+    enableSingleWordInput(word) {
+      return word.trim()
+    },
+    setRequestAndGetContacts(sortPar, sortOrd) {
+      this.sortParameter = sortPar
+      this.sortOrder = sortOrd
+      this.getContacts()
     },
     setContactFirstName() {
       this.contact.firstName = this.enableSingleWordInput(this.contact.firstName)
@@ -185,52 +145,6 @@ export default {
     },
     setContactPhone() {
       this.contact.phone = this.enableSingleWordInput(this.contact.phone)
-    },
-    enableSingleWordInput(word) {
-      return word.trim()
-    },
-    getContactsDescByFirstName() {
-      this.sortParameter = sort.parameter.firstName
-      this.sortOrder = sort.order.desc
-      this.resetContactsError()
-      this.setAndGetContacts()
-    },
-    getContactsAscByFirstName() {
-      this.sortParameter = sort.parameter.firstName
-      this.sortOrder = sort.order.asc
-      this.resetContactsError()
-      this.setAndGetContacts()
-    },
-    getContactsDescByLastName() {
-      this.sortParameter = sort.parameter.lastName
-      this.sortOrder = sort.order.desc
-      this.resetContactsError()
-      this.setAndGetContacts()
-    },
-    getContactsAscByLastName() {
-      this.sortParameter = sort.parameter.lastName
-      this.sortOrder = sort.order.asc
-      this.resetContactsError()
-      this.setAndGetContacts()
-    },
-    getContactsDescByCodename() {
-      this.sortParameter = sort.parameter.codename
-      this.sortOrder = sort.order.desc
-      this.resetContactsError()
-      this.setAndGetContacts()
-    },
-    getContactsAscByCodename() {
-      this.sortParameter = sort.parameter.codename
-      this.sortOrder = sort.order.asc
-      this.resetContactsError()
-      this.setAndGetContacts()
-    },
-    setAndGetContacts() {
-      if (this.keyword === '') {
-        this.getContactsOrdered()
-      } else {
-        this.getContactsByKeywordOrdered()
-      }
     },
     changeView() {
       this.viewContacts = !this.viewContacts
@@ -261,19 +175,10 @@ export default {
       this.contact.codename = ''
       this.contact.phone = ''
     },
-    resetContactsError() {
-      this.contactsError.message = ''
-      this.contactsError.errorCode = 0
-      this.showErrorMessage = ''
-    },
     resetContactError() {
       this.contactError.message = ''
       this.contactError.errorCode = 0
-      this.showErrorMessage = ''
-    },
-    onContactsError() {
-      return this.showErrorMessage === ''
-    },
+    }
   },
   beforeMount() {
     this.getContacts()

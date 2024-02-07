@@ -13,19 +13,11 @@ public class ContactService {
     @Resource
     private ContactRepository contactRepository;
 
-//    public List<Contact> getContacts() {
-//        return contactRepository.findAll();
-//    }
-
     public List<Contact> getContactsAndOrderBy(String sortParameter, String sortOrder) {
         Sort sort = Sort.unsorted();
         sort = setSortOrder(sortParameter, sortOrder, sort);
         return contactRepository.findAll(sort);
     }
-
-//    public List<Contact> findContacts(String name) {
-//        return contactRepository.findAllContactsContaining(name);
-//    }
 
     public List<Contact> findContactsByNameAndOrder(String name, String sortParameter, String sortOrder) {
         Sort sort = Sort.unsorted();
