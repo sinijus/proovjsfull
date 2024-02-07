@@ -2,65 +2,58 @@
   <div>
     <table class="table" aria-label="contacts-table">
       <thead>
-      <div v-if="viewContacts">
-        <header>
-          Kontaktide loetelu
-          <button @click="changeView"> Lisa uus kontakt</button>
-        </header>
-        <tr>
+      <tr>
+        <th colspan="4" v-if="viewContacts" id="contacts-header">
+          <header>
+            Kontaktide loetelu
+            <button @click="changeView"> Lisa uus kontakt</button>
+          </header>
           <input v-model="keyword" type="text" @input="validateAndGetContactsByKeyword" placeholder="otsi sõna järgi">
-        </tr>
-      </div>
-        <tr>
-          <th>
-            Eesnimi
-            <button class="right" @click="setRequestAndGetContacts(sort.parameter.firstName,sort.order.asc)" v-if="viewContacts">▼</button>
-            <button class="right" @click="setRequestAndGetContacts(sort.parameter.firstName,sort.order.desc)" v-if="viewContacts">▲</button>
-          </th>
-          <th>
-            Perekonnanimi
-            <button class="right" @click="setRequestAndGetContacts(sort.parameter.lastName,sort.order.asc)" v-if="viewContacts">▼</button>
-            <button class="right" @click="setRequestAndGetContacts(sort.parameter.lastName,sort.order.desc)" v-if="viewContacts">▲</button>
-          </th>
-          <th>
-            Koodnimi
-            <button class="right" @click="setRequestAndGetContacts(sort.parameter.codename,sort.order.asc)" v-if="viewContacts">▼</button>
-            <button class="right" @click="setRequestAndGetContacts(sort.parameter.codename,sort.order.desc)" v-if="viewContacts">▲</button>
-          </th>
-          <th>
-            Telefoni number
-          </th>
-        </tr>
+        </th>
+        <th colspan="4" v-if="!viewContacts" id="contacts-input">
+          <form @submit.prevent="verifyAndSaveContact">
+            <input type="text" v-model="contact.firstName" @input="setContactFirstName" placeholder="Eesnimi">
+            <input type="text" v-model="contact.lastName" @input="setContactLastName" placeholder="Perekonnanimi">
+            <input type="text" v-model="contact.codename" @input="setContactCodename" placeholder="Koodnimi">
+            <input type="text" v-model="contact.phone" @input="setContactPhone" placeholder="Telefoni number">
+            <button type="submit"> Salvesta uus kontakt</button>
+            <button @click="changeView"> Tagasi</button>
+          </form>
+        </th>
+      </tr>
+      <tr v-if="viewContacts">
+        <th id="first-name">
+          Eesnimi
+          <button class="right" @click="setRequestAndGetContacts(sort.parameter.firstName, sort.order.asc)" v-if="viewContacts">▼</button>
+          <button class="right" @click="setRequestAndGetContacts(sort.parameter.firstName, sort.order.desc)" v-if="viewContacts">▲</button>
+        </th>
+        <th id="last-name">
+          Perekonnanimi
+          <button class="right" @click="setRequestAndGetContacts(sort.parameter.lastName, sort.order.asc)" v-if="viewContacts">▼</button>
+          <button class="right" @click="setRequestAndGetContacts(sort.parameter.lastName, sort.order.desc)" v-if="viewContacts">▲</button>
+        </th>
+        <th id="codename">
+          Koodnimi
+          <button class="right" @click="setRequestAndGetContacts(sort.parameter.codename, sort.order.asc)" v-if="viewContacts">▼</button>
+          <button class="right" @click="setRequestAndGetContacts(sort.parameter.codename, sort.order.desc)" v-if="viewContacts">▲</button>
+        </th>
+        <th id="phone-number">
+          Telefoni number
+        </th>
+      </tr>
       </thead>
       <tbody v-if="viewContacts">
-        <tr v-for="contact in contacts" :key="contact.firstName">
-          <td>{{ contact.firstName }}</td>
-          <td>{{ contact.lastName }}</td>
-          <td>{{ contact.codename }}</td>
-          <td>{{ contact.phone }}</td>
-        </tr>
-      </tbody>
-      <tbody v-if="!viewContacts">
-        <tr>
-          <td>
-            <input type="text" v-model="contact.firstName" @input="setContactFirstName">
-          </td>
-          <td>
-            <input type="text" v-model="contact.lastName" @input="setContactLastName">
-          </td>
-          <td>
-            <input type="text" v-model="contact.codename" @input="setContactCodename">
-          </td>
-          <td>
-            <input type="text" v-model="contact.phone" @input="setContactPhone">
-          </td>
-        </tr>
-        <button @click="changeView"> Tagasi</button>
-        <button @click="verifyAndSaveContact"> Salvesta uus kontakt</button>
+      <tr v-for="contact in contacts" :key="contact.firstName">
+        <td>{{ contact.firstName }}</td>
+        <td>{{ contact.lastName }}</td>
+        <td>{{ contact.codename }}</td>
+        <td>{{ contact.phone }}</td>
+      </tr>
       </tbody>
     </table>
   </div>
 </template>
+
 
 <script>
 import {sort} from "@/assets/sort.js"
@@ -104,7 +97,7 @@ export default {
           }
       ).then(response => {
         this.contacts = response.data
-      }).catch(error => {
+      }).catch(() => {
       })
     },
     postContact() {
