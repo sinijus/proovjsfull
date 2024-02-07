@@ -18,25 +18,19 @@ public class ContactsService {
     @Resource
     private ContactMapper contactMapper;
 
-
-    public List<ContactDto> findAllContacts() {
-        List<Contact> contacts = contactService.getContacts();
-        return contactMapper.toContactDtos(contacts);
-    }
-
     public List<ContactDto> findAllContactsAndOrderBy(String sortParameter, String sortOrder) {
         List<Contact> contacts = contactService.getContactsAndOrderBy(sortParameter, sortOrder);
-        return contactMapper.toContactDtos(contacts);
-    }
-
-    public List<ContactDto> findContacts(String name) {
-        List<Contact> contacts = contactService.findContacts(name);
         return contactMapper.toContactDtos(contacts);
     }
 
     public List<ContactDto> findContactsByNameAndOrder(String name, String sortParameter, String sortOrder) {
         List<Contact> contacts = contactService.findContactsByNameAndOrder(name, sortParameter, sortOrder);
         return contactMapper.toContactDtos(contacts);
+    }
+
+    public List<ContactDto> searchContactsBy(String name, String sortParameter, String sortOrder) {
+        if (name.isEmpty()) return findAllContactsAndOrderBy(sortParameter, sortOrder);
+        else return findContactsByNameAndOrder(name, sortParameter, sortOrder);
     }
 
     public void postContact(ContactDto request) {
@@ -62,7 +56,7 @@ public class ContactsService {
     }
 
     private void validateNewContactNameIsAvailable(ContactDto request) {
-        Boolean contactExists = contactService.doesContactExistBy(request.getFirstName(), request.getLastName());
+        Boolean contactExists = contactService.existsByFirstNameAndLastName(request.getFirstName(), request.getLastName());
         ValidationService.validateThatNameIsAvailable(contactExists);
     }
 }

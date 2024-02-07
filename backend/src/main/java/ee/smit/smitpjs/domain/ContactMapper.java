@@ -10,11 +10,6 @@ public interface ContactMapper {
 
     Contact toContact(ContactDto contactDto);
 
-    ContactDto toContactDto(Contact contact);
-
     List<ContactDto> toContactDtos(List<Contact> contacts);
-
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    Contact partialUpdate(ContactDto contactDto, @MappingTarget Contact contact);
 
 }

@@ -19,47 +19,15 @@ public class ContactsController {
     private ContactsService contactsService;
 
     @GetMapping("/contacts")
-    @Operation(summary = "Otsib kõiki kontakte",
-            description = " Otsib andmebaasist kõiki olemasolevaid kontakte.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "403", description = "Ühtegi kontakti ei leitud",
-                    content = @Content(schema = @Schema(implementation = ApiError.class)))})
-    public List<ContactDto> findAllContacts() {
-        return contactsService.findAllContacts();
-    }
-
-    @GetMapping("/ordered-contacts")
-    @Operation(summary = "Otsib kõiki kontakte järjestatult",
+    @Operation(summary = "Otsib kontakte",
             description = """
-                    Otsib andmebaasist kõiki olemasolevaid kontakte
-                    ning järjestab need ees-, pere- või koodnime järgi tõusvalt või laskuvalt.
-                    """)
-    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "OK") })
-    public List<ContactDto> findAllContactsAndOrder(@RequestParam String sortParameter, @RequestParam String sortOrder) {
-        return contactsService.findAllContactsAndOrderBy(sortParameter, sortOrder);
-
-    }
-
-    @GetMapping("/filtered-contacts")
-    @Operation(summary = "Otsib kontakte otsisõna järgi",
-            description = " Otsib andmebaasist kontakte otsisõna järgi nii nende päris kui ka koodnime alusel.")
-    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "OK") })
-    public List<ContactDto> filterContacts(@RequestParam String name) {
-        return contactsService.findContacts(name);
-    }
-
-    @GetMapping("/filtered-ordered-contacts")
-    @Operation(summary = "Otsib kontakte otsisõna järgi ja järjestatult",
-            description = """
-                    Otsib andmebaasist kontakte otsisõna järgi nii nende päris kui ka koodnime alusel
-                    ning järjestab need ees-, pere- või koodnime järgi tõusvalt või laskuvalt.
-                    """)
-    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "OK") })
-    public List<ContactDto> filterContactsAndOrder(@RequestParam String name,
-                                                 @RequestParam String sortParameter,
-                                                 @RequestParam String sortOrder) {
-        return contactsService.findContactsByNameAndOrder(name, sortParameter, sortOrder);
+                    Otsib andmebaasist kõiki kontakte, valikuliselt otsisõna järgi ning sorteeritult.
+                    Kui ühtegi kontakti ei leita tagastatakse tühi massiiv""")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
+    public List<ContactDto> searchContacts(@RequestParam(defaultValue = "") String filterName,
+                                         @RequestParam(defaultValue = "firstName") String sortParameter,
+                                         @RequestParam(defaultValue = "asc") String sortOrder) {
+        return contactsService.searchContactsBy(filterName, sortParameter, sortOrder);
     }
 
     @PostMapping("/contact")
@@ -75,5 +43,4 @@ public class ContactsController {
     public void postContact(@RequestBody ContactDto request) {
         contactsService.postContact(request);
     }
-
 }

@@ -13,9 +13,9 @@ public class ContactService {
     @Resource
     private ContactRepository contactRepository;
 
-    public List<Contact> getContacts() {
-        return contactRepository.findAll();
-    }
+//    public List<Contact> getContacts() {
+//        return contactRepository.findAll();
+//    }
 
     public List<Contact> getContactsAndOrderBy(String sortParameter, String sortOrder) {
         Sort sort = Sort.unsorted();
@@ -23,9 +23,9 @@ public class ContactService {
         return contactRepository.findAll(sort);
     }
 
-    public List<Contact> findContacts(String name) {
-        return contactRepository.findAllContactsContaining(name);
-    }
+//    public List<Contact> findContacts(String name) {
+//        return contactRepository.findAllContactsContaining(name);
+//    }
 
     public List<Contact> findContactsByNameAndOrder(String name, String sortParameter, String sortOrder) {
         Sort sort = Sort.unsorted();
@@ -42,7 +42,7 @@ public class ContactService {
         return sort;
     }
 
-    public boolean doesContactExistBy(String firstName, String lastName) {
+    public boolean existsByFirstNameAndLastName(String firstName, String lastName) {
         return contactRepository.existsByFirstNameAndLastName(firstName, lastName);
     }
 
