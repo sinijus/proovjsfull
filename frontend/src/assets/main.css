@@ -1,7 +1,6 @@
 table, th, td {
   border:1px solid black;
 }
-button.right {
-
+#header-main {
+  text-align: left;
 }
-

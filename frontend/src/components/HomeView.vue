@@ -3,14 +3,14 @@
     <table class="table" aria-label="contacts-table">
       <thead>
       <tr>
-        <th colspan="4" v-if="viewContacts" id="contacts-header">
+        <th colspan="4" v-if="viewContacts" id="header-main">
           <header>
             Kontaktide loetelu
             <button @click="changeView"> Lisa uus kontakt</button>
           </header>
           <input v-model="keyword" type="text" @input="validateAndGetContactsByKeyword" placeholder="otsi sõna järgi">
         </th>
-        <th colspan="4" v-if="!viewContacts" id="contacts-input">
+        <th colspan="4" v-if="!viewContacts" id="header">
           <form @submit.prevent="verifyAndSaveContact">
             <input type="text" v-model="contact.firstName" @input="setContactFirstName" placeholder="Eesnimi">
             <input type="text" v-model="contact.lastName" @input="setContactLastName" placeholder="Perekonnanimi">
@@ -22,22 +22,22 @@
         </th>
       </tr>
       <tr v-if="viewContacts">
-        <th id="first-name">
+        <th id="header">
           Eesnimi
           <button class="right" @click="setRequestAndGetContacts(sort.parameter.firstName, sort.order.asc)" v-if="viewContacts">▼</button>
           <button class="right" @click="setRequestAndGetContacts(sort.parameter.firstName, sort.order.desc)" v-if="viewContacts">▲</button>
         </th>
-        <th id="last-name">
+        <th id="header">
           Perekonnanimi
           <button class="right" @click="setRequestAndGetContacts(sort.parameter.lastName, sort.order.asc)" v-if="viewContacts">▼</button>
           <button class="right" @click="setRequestAndGetContacts(sort.parameter.lastName, sort.order.desc)" v-if="viewContacts">▲</button>
         </th>
-        <th id="codename">
+        <th id="header">
           Koodnimi
           <button class="right" @click="setRequestAndGetContacts(sort.parameter.codename, sort.order.asc)" v-if="viewContacts">▼</button>
           <button class="right" @click="setRequestAndGetContacts(sort.parameter.codename, sort.order.desc)" v-if="viewContacts">▲</button>
         </th>
-        <th id="phone-number">
+        <th id="header">
           Telefoni number
         </th>
       </tr>
