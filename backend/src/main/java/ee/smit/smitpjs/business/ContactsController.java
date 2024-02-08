@@ -35,10 +35,10 @@ public class ContactsController {
             description = " Lisab andmebaasi uue kontakti kui nime tähekombinatsiooniga kontakt juba ei eksisteeri.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "403", description = """
-                    Sellise ees- ja perekonna nimega kontakt on juba olemas
-                    või Sisestatud väljade pikkus ei tohi olla suurem kui 255 märki""",
-                    content = @Content(schema = @Schema(implementation = ApiError.class)))
+            @ApiResponse(responseCode = "403", description = "Sellise ees- ja perekonna nimega kontakt on juba olemas",
+                    content = @Content(schema = @Schema(implementation = ApiError.class))),
+            @ApiResponse(responseCode = "403", description = "Sisestatud väljade pikkus ei tohi olla suurem kui 255 märki",
+                    content = @Content(schema = @Schema(implementation = ApiError.class))),
     })
     public void postContact(@RequestBody ContactDto request) {
         contactsService.postContact(request);
