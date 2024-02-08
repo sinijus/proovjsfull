@@ -14,24 +14,23 @@ public class ContactService {
     private ContactRepository contactRepository;
 
     public List<Contact> getContactsAndOrderBy(String sortParameter, String sortOrder) {
-        Sort sort = Sort.unsorted();
-        sort = setSortOrder(sortParameter, sortOrder, sort);
+        Sort sort = setSortOrder(sortParameter, sortOrder);
         return contactRepository.findAll(sort);
     }
 
     public List<Contact> findContactsByNameAndOrder(String name, String sortParameter, String sortOrder) {
-        Sort sort = Sort.unsorted();
-        sort = setSortOrder(sortParameter, sortOrder, sort);
+        Sort sort = setSortOrder(sortParameter, sortOrder);
         return contactRepository.findAllContactsContainingNameAndOrdered(name, sort);
     }
 
-    private static Sort setSortOrder(String sortParameter, String sortOrder, Sort sort) {
+    private static Sort setSortOrder(String sortParameter, String sortOrder) {
         if (Objects.equals(sortOrder.toUpperCase(), Value.ASC.getMessage())) {
-            sort = Sort.by(Sort.Direction.ASC, sortParameter);
-        } else if (Objects.equals(sortOrder.toUpperCase(), Value.DESC.getMessage())) {
-            sort = Sort.by(Sort.Direction.DESC, sortParameter);
+            return Sort.by(Sort.Direction.ASC, sortParameter);
         }
-        return sort;
+        if (Objects.equals(sortOrder.toUpperCase(), Value.DESC.getMessage())) {
+            return Sort.by(Sort.Direction.DESC, sortParameter);
+        }
+        return Sort.unsorted();
     }
 
     public boolean existsByFirstNameAndLastName(String firstName, String lastName) {
