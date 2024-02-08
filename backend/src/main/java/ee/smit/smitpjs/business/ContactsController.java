@@ -32,12 +32,12 @@ public class ContactsController {
 
     @PostMapping("/contact")
     @Operation(summary = "Lisab uue kontakti",
-            description = " Lisab andmebaasi uue kontakti kui nime tähekombinatsiooniga kontakt juba ei eksisteeri.")
+            description = " Lisab andmebaasi uue kontakti kui sama ees- ja perekonnanimega kontakt juba ei eksisteeri.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "403", description = "Sellise ees- ja perekonna nimega kontakt on juba olemas",
                     content = @Content(schema = @Schema(implementation = ApiError.class))),
-            @ApiResponse(responseCode = "403", description = "Sisestatud väljade pikkus ei tohi olla suurem kui 255 märki",
+            @ApiResponse(responseCode = "404", description = "Sisestatud väljade pikkus ei tohi olla suurem kui 255 märki",
                     content = @Content(schema = @Schema(implementation = ApiError.class))),
     })
     public void postContact(@RequestBody ContactDto request) {
