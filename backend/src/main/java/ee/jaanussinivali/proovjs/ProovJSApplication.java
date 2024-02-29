@@ -1,13 +1,13 @@
-package ee.smit.smitpjs;
+package ee.jaanussinivali.proovjs;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SmitpjsApplication {
+public class ProovJSApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SmitpjsApplication.class, args);
+		SpringApplication.run(ProovJSApplication.class, args);
 	}
 
 }

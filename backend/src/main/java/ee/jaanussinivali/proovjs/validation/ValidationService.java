@@ -1,6 +1,6 @@
-package ee.smit.smitpjs.validation;
+package ee.jaanussinivali.proovjs.validation;
 
-import ee.smit.smitpjs.infrastructure.exception.BusinessException;
+import ee.jaanussinivali.proovjs.infrastructure.exception.BusinessException;
 
 public class ValidationService {
 

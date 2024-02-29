@@ -12,7 +12,7 @@ export default defineConfig({
         //for development use
         // target: 'http://localhost:8080',
         //for Docker use
-        target: 'http://smitproovjsback:8080',
+        target: 'http://proovjsback:8080',
         changeOrigin: true,
         secure: false,
         ws: true,

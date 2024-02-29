@@ -1,6 +1,6 @@
-package ee.smit.smitpjs.domain;
+package ee.jaanussinivali.proovjs.domain;
 
-import ee.smit.smitpjs.business.dto.ContactDto;
+import ee.jaanussinivali.proovjs.business.dto.ContactDto;
 import org.mapstruct.*;
 
 import java.util.List;

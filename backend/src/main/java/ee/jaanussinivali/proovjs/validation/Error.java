@@ -1,4 +1,4 @@
-package ee.smit.smitpjs.validation;
+package ee.jaanussinivali.proovjs.validation;
 
 import lombok.Getter;
 

@@ -1,4 +1,4 @@
-package ee.smit.smitpjs.infrastructure.error;
+package ee.jaanussinivali.proovjs.infrastructure.error;
 
 import lombok.Data;
 @Data

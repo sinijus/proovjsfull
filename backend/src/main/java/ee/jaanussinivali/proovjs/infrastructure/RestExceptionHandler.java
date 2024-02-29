@@ -1,8 +1,8 @@
-package ee.smit.smitpjs.infrastructure;
+package ee.jaanussinivali.proovjs.infrastructure;
 
-import ee.smit.smitpjs.infrastructure.error.ApiError;
-import ee.smit.smitpjs.infrastructure.exception.BusinessException;
-import ee.smit.smitpjs.infrastructure.exception.DataNotFoundException;
+import ee.jaanussinivali.proovjs.infrastructure.error.ApiError;
+import ee.jaanussinivali.proovjs.infrastructure.exception.BusinessException;
+import ee.jaanussinivali.proovjs.infrastructure.exception.DataNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

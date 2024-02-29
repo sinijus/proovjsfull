@@ -1,4 +1,4 @@
-package ee.smit.smitpjs.domain;
+package ee.jaanussinivali.proovjs.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "contact", schema = "smitproovjs")
+@Table(name = "contact", schema = "proovjs")
 public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

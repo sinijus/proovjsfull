@@ -1,6 +1,6 @@
-package ee.smit.smitpjs.business.dto;
+package ee.jaanussinivali.proovjs.business.dto;
 
-import ee.smit.smitpjs.domain.Contact;
+import ee.jaanussinivali.proovjs.domain.Contact;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;

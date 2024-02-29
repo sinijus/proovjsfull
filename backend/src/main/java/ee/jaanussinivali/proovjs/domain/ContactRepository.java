@@ -1,4 +1,4 @@
-package ee.smit.smitpjs.domain;
+package ee.jaanussinivali.proovjs.domain;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;

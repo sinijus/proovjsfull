@@ -4,11 +4,11 @@ volumes:
   pg_data:
 
 services:
-  smitproovjsback:
-    image: smitproovjsback
+  proovjsback:
+    image: proovjsback
     build:
       context: ./backend
-    container_name: smitproovjsback
+    container_name: proovjsback
     depends_on:
       - db
     ports:
@@ -17,7 +17,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=student123
-      - SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA=smitproovjs
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA=proovjs
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
   db:
@@ -33,15 +33,15 @@ services:
       - ./backend/init-scripts:/docker-entrypoint-initdb.d  # Mount init-scripts directory
     restart: always
 
-  smitproovjsfront:
-    image: smitproovjsfront
+  proovjsfront:
+    image: proovjsfront
     build:
       context: ./frontend
-    container_name: smitproovjsfront
+    container_name: proovjsfront
     ports:
       - "8081:8081"
     depends_on:
-      - smitproovjsback
+      - proovjsback
 
 
 

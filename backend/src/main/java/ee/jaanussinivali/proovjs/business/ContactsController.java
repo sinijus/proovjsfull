@@ -1,7 +1,7 @@
-package ee.smit.smitpjs.business;
+package ee.jaanussinivali.proovjs.business;
 
-import ee.smit.smitpjs.business.dto.ContactDto;
-import ee.smit.smitpjs.infrastructure.error.ApiError;
+import ee.jaanussinivali.proovjs.infrastructure.error.ApiError;
+import ee.jaanussinivali.proovjs.business.dto.ContactDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

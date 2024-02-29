@@ -1,4 +1,4 @@
-package ee.smit.smitpjs.infrastructure.exception;
+package ee.jaanussinivali.proovjs.infrastructure.exception;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

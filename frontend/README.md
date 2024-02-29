@@ -1,4 +1,4 @@
-# smitproovjsfront
+# proovjsfront
 
 This template should help get you started developing with Vue 3 in Vite.
 If there are problems running the project with Docker, 

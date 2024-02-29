@@ -1,6 +1,6 @@
-package ee.smit.smitpjs.domain;
+package ee.jaanussinivali.proovjs.domain;
 
-import ee.smit.smitpjs.validation.Value;
+import ee.jaanussinivali.proovjs.validation.Value;
 import jakarta.annotation.Resource;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;

@@ -1,10 +1,10 @@
-package ee.smit.smitpjs.business;
+package ee.jaanussinivali.proovjs.business;
 
-import ee.smit.smitpjs.business.dto.ContactDto;
-import ee.smit.smitpjs.domain.Contact;
-import ee.smit.smitpjs.domain.ContactMapper;
-import ee.smit.smitpjs.domain.ContactService;
-import ee.smit.smitpjs.validation.ValidationService;
+import ee.jaanussinivali.proovjs.domain.Contact;
+import ee.jaanussinivali.proovjs.domain.ContactMapper;
+import ee.jaanussinivali.proovjs.domain.ContactService;
+import ee.jaanussinivali.proovjs.validation.ValidationService;
+import ee.jaanussinivali.proovjs.business.dto.ContactDto;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 

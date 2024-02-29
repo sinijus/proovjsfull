@@ -1,4 +1,4 @@
-CREATE TABLE smitproovjs.contact
+CREATE TABLE proovjs.contact
 (
     id       serial       NOT NULL,
     first_name     varchar(255) NOT NULL,
